@@ -14,8 +14,6 @@ uri = os.environ.get("MONGO_URI")
 
 client = MongoClient(
     uri,
-    tls=True,
-    tlsAllowInvalidCertificates=True,
     serverSelectionTimeoutMS=5000
 )
 
