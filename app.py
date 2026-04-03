@@ -4,6 +4,7 @@ from datetime import datetime
 import re
 import os
 from dotenv import load_dotenv
+import certifi
 
 load_dotenv()
 
@@ -15,7 +16,8 @@ uri = os.environ.get("MONGO_URI")
 client = MongoClient(
     uri,
     serverSelectionTimeoutMS=10000,
-    tls=True
+    tls=True,
+    tlsCAFile=certifi.where()
 )
 
 db = client["sareekraft"]
