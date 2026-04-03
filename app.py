@@ -12,7 +12,11 @@ app = Flask(__name__)
 
 uri = os.environ.get("MONGO_URI")
 
-client = MongoClient(uri, serverSelectionTimeoutMS=5000)
+client = MongoClient(
+    uri,
+    serverSelectionTimeoutMS=10000,
+    tls=True
+)
 
 db = client["sareekraft"]
 collection = db["users"]
@@ -26,7 +30,12 @@ def index():
         phone_number = request.form.get("phone-number")
         feedback = request.form.get("feedback")
         city = request.form.get("city")
-
+        
+        try:
+            client.admin.command('ping')
+            print("MongoDB connected ✅")
+        except Exception as e:
+            print("Mongo ERROR:", e)
   
         if not name or not email or not phone_number or not feedback or not city:
             return render_template("index.html", error="All fields are required ❌", form=request.form)
