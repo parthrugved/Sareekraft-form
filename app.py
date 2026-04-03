@@ -30,7 +30,7 @@ def index():
         phone_number = request.form.get("phone-number")
         feedback = request.form.get("feedback")
         city = request.form.get("city")
-        
+
         try:
             client.admin.command('ping')
             print("MongoDB connected ✅")
