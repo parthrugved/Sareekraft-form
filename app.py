@@ -12,8 +12,12 @@ app = Flask(__name__)
 
 uri = os.environ.get("MONGO_URI")
 
-
-client = MongoClient(uri, serverSelectionTimeoutMS=5000)
+client = MongoClient(
+    uri,
+    tls=True,
+    tlsAllowInvalidCertificates=True,
+    serverSelectionTimeoutMS=5000
+)
 
 db = client["sareekraft"]
 collection = db["users"]
