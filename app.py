@@ -67,7 +67,7 @@ def index():
                 "date": now.strftime("%Y-%m-%d"),
                 "time": now.strftime("%H:%M:%S")
             })
-
+            print("✅ Data inserted successfully!")
             return render_template("index.html", success="Details submitted successfully ✅")
 
         except Exception as e:
