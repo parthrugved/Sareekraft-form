@@ -10,7 +10,7 @@ load_dotenv()
 app = Flask(__name__)
 
 uri = os.environ.get("MONGO_URI")
-client = MongoClient(uri)
+client = MongoClient(uri, serverSelectionTimeoutMS=5000)
 
 db = client["sareekraft"]
 collection = db["users"]
