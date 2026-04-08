@@ -1,5 +1,6 @@
-flask
-pymongo
-gunicorn
-python-dotenv
-certifi
+flask==3.1.0
+pymongo[srv]==4.7.3
+gunicorn==23.0.0
+python-dotenv==1.0.1
+certifi==2025.1.31
+dnspython==2.6.1

@@ -15,11 +15,18 @@ uri = os.environ.get("MONGO_URI")
 
 client = MongoClient(
     uri,
-    serverSelectionTimeoutMS=10000,
+    serverSelectionTimeoutMS=20000,
+    connectTimeoutMS=20000,
+    socketTimeoutMS=20000,
     tls=True,
-    tlsAllowInvalidCertificates=True,
     tlsCAFile=certifi.where()
 )
+
+try:
+    client.admin.command("ping")
+    print("✅ MongoDB connected successfully!")
+except Exception as e:
+    print(f"❌ MongoDB connection failed: {e}")
 
 db = client["sareekraft"]
 collection = db["users"]
@@ -34,12 +41,6 @@ def index():
         feedback = request.form.get("feedback")
         city = request.form.get("city")
 
-        try:
-            client.admin.command('ping')
-            print("MongoDB connected ✅")
-        except Exception as e:
-            print("Mongo ERROR:", e)
-  
         if not name or not email or not phone_number or not feedback or not city:
             return render_template("index.html", error="All fields are required ❌", form=request.form)
 
