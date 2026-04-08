@@ -17,6 +17,7 @@ client = MongoClient(
     uri,
     serverSelectionTimeoutMS=10000,
     tls=True,
+    tlsAllowInvalidCertificates=True,
     tlsCAFile=certifi.where()
 )
 
