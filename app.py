@@ -3,6 +3,7 @@ from pymongo.mongo_client import MongoClient
 from datetime import datetime
 import re
 import os
+import ssl
 from dotenv import load_dotenv
 import certifi
 
@@ -12,6 +13,12 @@ app = Flask(__name__)
 
 
 uri = os.environ.get("MONGO_URI")
+
+# Build an explicit SSL context for maximum compatibility
+ssl_ctx = ssl.create_default_context(cafile=certifi.where())
+ssl_ctx.minimum_version = ssl.TLSVersion.TLSv1_2
+ssl_ctx.check_hostname = True
+ssl_ctx.verify_mode = ssl.CERT_REQUIRED
 
 client = MongoClient(
     uri,
